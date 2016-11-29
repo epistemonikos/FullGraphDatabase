@@ -5,17 +5,22 @@ import pprint
 
 DEBUG = False
 
+def createDB(client,name):
+    client.db_create( name, pyorient.DB_TYPE_GRAPH, pyorient.STORAGE_TYPE_MEMORY )
+    client.command( "create class Paper extends V" )
+    client.command( "create class Reference extends E" )
+    client.command( "create class SR extends Paper" )
+    client.command( "create class PS extends Paper" )
+
+
 client = pyorient.OrientDB("localhost", 2424)  #TO DO
 session_id = client.connect( "admin", "admin" )
 
 #create a databse
-#client.db_create( "test2", pyorient.DB_TYPE_GRAPH, pyorient.STORAGE_TYPE_MEMORY )
+dbname = "test4"
+createDB(client,dbname)
 
-
-client.db_open( "test2", "admin", "admin" )
-
-#client.command( "create class Paper extends V" )
-#client.command( "create class Reference extends E" )
+client.db_open( dbname, "admin", "admin" )
 
 
 def logInsert(JSON):
@@ -29,11 +34,11 @@ def logReference(id1,id2):
     file.close()
 
 
-def insertPaper(JSON):
+def insertPaper(JSON, Paper = "Paper"):
     logInsert(json.loads(JSON))
     try:
-        if (len (client.command("select from Paper where ids.doi = \""+json.loads(JSON).get("ids").get("doi")+"\"")) ==0):
-            client.command( "INSERT INTO Paper CONTENT" + str(JSON))
+        if (len (client.command("select from "+Paper+" where ids.doi = \""+json.loads(JSON).get("ids").get("doi")+"\"")) ==0):
+            client.command( "INSERT INTO "+Paper+" CONTENT" + str(JSON))
             if DEBUG:
                 print("Inserte")
         else:
@@ -68,10 +73,10 @@ def readTSV(file_path):
        linejson = json.loads(line)
        rs = getInfo(linejson)
        references = getReferences(linejson)
-       insertPaper(rs)
+       insertPaper(rs, Paper = "SR")
        for r in references:
             r = json.dumps(r)
-            insertPaper(r)
+            insertPaper(r,Paper = "PS")
             rs = json.loads(rs)
             r = json.loads(r)
             makeReference(rs.get("ids").get("doi"), r.get("ids").get("doi"))
