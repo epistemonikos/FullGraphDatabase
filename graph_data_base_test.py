@@ -4,7 +4,8 @@ import sys
 import json
 
 #module imports
-from model.node import Node
+from model.primary_study import PrimaryStudy
+from model.systematic_review import SystematicReview
 from model.graph import Graph
 from logs.graph_log import *
 
@@ -26,11 +27,11 @@ f = open(FILE_PATH)
 line = f.readline()
 while line:
    linejson = json.loads(line)
-   sr_node = Node(linejson)
+   sr_node = SystematicReview(linejson)
    graph.insert_sr(sr_node)
    references = sr_node.references()
    for r in references:
-        ps_node = Node(r)
+        ps_node = PrimaryStudy(r)
         graph.insert_ps(ps_node)
         graph.make_reference(sr_node, ps_node)
    line = f.readline()
