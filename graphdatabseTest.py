@@ -5,14 +5,20 @@ import pprint
 
 DEBUG = False
 
-client = pyorient.OrientDB("localhost", 2424)  #TO DO
-session_id = client.connect( "admin", "admin" )
+HOST = 'localhost'
+PORT = 2424
+USER = or 'root'
+PASSWORD = or '12345678'
+DB_NAME = 'test2'
+
+client = pyorient.OrientDB(HOST, PORT)
+session_id = client.connect(USER,PASSWORD)
 
 #create a databse
-#client.db_create( "test2", pyorient.DB_TYPE_GRAPH, pyorient.STORAGE_TYPE_MEMORY )
+#client.db_create( DB_NAME, pyorient.DB_TYPE_GRAPH, pyorient.STORAGE_TYPE_MEMORY )
 
 
-client.db_open( "test2", "admin", "admin" )
+client.db_open( DB_NAME, USER, PASSWORD )
 
 #client.command( "create class Paper extends V" )
 #client.command( "create class Reference extends E" )
