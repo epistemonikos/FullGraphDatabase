@@ -3,3 +3,4 @@ orientdb
 *.txt
 .DS_Store
 *.pyc
+*.log

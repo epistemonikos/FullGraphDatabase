@@ -3,7 +3,7 @@ from model.graph import Graph
 
 @Log(Graph, Graph.insert)
 def log_insert(self, node, returned):
-    file = open("log.txt", "a")
+    file = open("log.log", "a")
     if returned:
       inserted = "Inserted"
     else:
@@ -15,7 +15,7 @@ def log_insert(self, node, returned):
 def log_make_reference(self, node_1, node_2, returned):
     id1 = node_1.get_doi()
     id2 = node_2.get_doi()
-    file = open("log.txt", "a")
+    file = open("log.log", "a")
     if returned:
       maked = "Maked"
     else:
