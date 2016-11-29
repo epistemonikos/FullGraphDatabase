@@ -9,7 +9,7 @@ class Graph:
     self.client.db_open(DB_NAME, USER, PASSWORD)
 
   def execute(self, cmd):
-    self.client.command(cmd)
+    return self.client.command(cmd)
 
   def create_db(self, client, DB_NAME):
     self.client.db_create( DB_NAME, pyorient.DB_TYPE_GRAPH, pyorient.STORAGE_TYPE_MEMORY )

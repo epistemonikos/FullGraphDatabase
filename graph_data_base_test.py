@@ -13,7 +13,7 @@ HOST = 'localhost'
 PORT = 2424
 USER = 'admin'
 PASSWORD = 'admin'
-DB_NAME = 'test2'
+DB_NAME = 'epistemonikos'
 FILE_PATH = 'example.tsv'
 
 args = sys.argv[1:]
@@ -28,11 +28,11 @@ line = f.readline()
 while line:
    linejson = json.loads(line)
    sr_node = SystematicReview(linejson)
-   graph.insert_sr(sr_node)
+   graph.insert(sr_node)
    references = sr_node.references()
    for r in references:
         ps_node = PrimaryStudy(r)
-        graph.insert_ps(ps_node)
+        graph.insert(ps_node)
         graph.make_reference(sr_node, ps_node)
    line = f.readline()
 

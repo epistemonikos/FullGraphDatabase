@@ -2,7 +2,7 @@ from model.node import Node
 
 class SystematicReview(Node):
   
-  def klass():
+  def klass(self):
     return 'SR'
 
   def exist_in(self, graph):

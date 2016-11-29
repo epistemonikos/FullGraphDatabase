@@ -1,24 +1,14 @@
 from logs.log import Log
 from model.graph import Graph
 
-@Log(Graph, Graph.insert_sr)
-def log_insert_sr(self, node, returned):
+@Log(Graph, Graph.insert)
+def log_insert(self, node, returned):
     file = open("log.txt", "a")
     if returned:
       inserted = "Inserted"
     else:
       inserted = "No inserted"
-    file.write( inserted + " SR, with doi " + node.get_doi() +"\n" )
-    file.close()
-
-@Log(Graph, Graph.insert_ps)
-def log_insert_ps(self, node, returned):
-    file = open("log.txt", "a")
-    if returned:
-      inserted = "Inserted"
-    else:
-      inserted = "No inserted"
-    file.write( inserted + " PS, with doi " + node.get_doi() +"\n" )
+    file.write( inserted + " "+ node.klass() +", with doi " + node.get_doi() +"\n" )
     file.close()
 
 @Log(Graph, Graph.make_reference)
