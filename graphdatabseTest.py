@@ -1,4 +1,5 @@
 __author__ = 'fmosso'
+import sys
 import pyorient
 import json
 import pprint
@@ -14,16 +15,20 @@ def createDB(client, DB_NAME):
 
 HOST = 'localhost'
 PORT = 2424
-USER = or 'root'
-PASSWORD = or '12345678'
+USER = 'admin'
+PASSWORD = 'admin'
 DB_NAME = 'test2'
 
+args = sys.argv[1:]
+if(len(args) > 1):
+    USER = args[0]
+    PASSWORD = args[1]
+
 client = pyorient.OrientDB(HOST, PORT)
-session_id = client.connect(USER,PASSWORD)
+session_id = client.connect(USER, PASSWORD)
 
 createDB(client, DB_NAME)
-
-client.db_open( dbname, USER, PASSWORD )
+client.db_open(dbname, USER, PASSWORD)
 
 
 def logInsert(JSON):
