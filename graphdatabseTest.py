@@ -3,17 +3,19 @@ import pyorient
 import json
 import pprint
 
+DEBUG = False
+
 client = pyorient.OrientDB("localhost", 2424)  #TO DO
 session_id = client.connect( "admin", "admin" )
 
 #create a databse
-client.db_create( "test3", pyorient.DB_TYPE_GRAPH, pyorient.STORAGE_TYPE_MEMORY )
+#client.db_create( "test2", pyorient.DB_TYPE_GRAPH, pyorient.STORAGE_TYPE_MEMORY )
 
 
-client.db_open( "test3", "admin", "admin" )
+client.db_open( "test2", "admin", "admin" )
 
-client.command( "create class Paper extends V" )
-client.command( "create class Reference extends E" )
+#client.command( "create class Paper extends V" )
+#client.command( "create class Reference extends E" )
 
 
 def logInsert(JSON):
@@ -30,7 +32,13 @@ def logReference(id1,id2):
 def insertPaper(JSON):
     logInsert(json.loads(JSON))
     try:
-         client.command( "INSERT INTO Paper CONTENT" + str(JSON))
+        if (len (client.command("select from Paper where ids.doi = \""+json.loads(JSON).get("ids").get("doi")+"\"")) ==0):
+            client.command( "INSERT INTO Paper CONTENT" + str(JSON))
+            if DEBUG:
+                print("Inserte")
+        else:
+            if DEBUG:
+                print("No inserte")
     except:
         pass
 
