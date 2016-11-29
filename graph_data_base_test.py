@@ -1,10 +1,10 @@
 __author__ = 'fmosso'
 #base imports
 import sys
-import pyorient
 import json
 
 #module imports
+from model.node import Node
 from model.graph import Graph
 from logs.graph_log import *
 
@@ -13,6 +13,7 @@ PORT = 2424
 USER = 'admin'
 PASSWORD = 'admin'
 DB_NAME = 'test2'
+FILE_PATH = 'example.tsv'
 
 args = sys.argv[1:]
 if(len(args) > 1):
@@ -21,7 +22,7 @@ if(len(args) > 1):
 
 graph = Graph(HOST, PORT, USER, PASSWORD, DB_NAME)
 
-f = open(file_path)
+f = open(FILE_PATH)
 line = f.readline()
 while line:
    linejson = json.loads(line)
@@ -33,3 +34,4 @@ while line:
         graph.insert_ps(ps_node)
         graph.make_reference(sr_node, ps_node)
    line = f.readline()
+

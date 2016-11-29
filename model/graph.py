@@ -1,9 +1,11 @@
+import pyorient
+
 class Graph:
   def __init__(self, HOST='localhost', PORT = 2424, USER = 'admin', PASSWORD = 'admin', DB_NAME = 'test2'):
     self.client = pyorient.OrientDB(HOST, PORT)
-    self.session_id = client.connect(USER, PASSWORD)
-    if not client.db_exists(DB_NAME):
-      self.createDB(self.client, DB_NAME)
+    self.session_id = self.client.connect(USER, PASSWORD)
+    if not self.client.db_exists(DB_NAME):
+      self.create_db(self.client, DB_NAME)
     self.client.db_open(DB_NAME, USER, PASSWORD)
 
   def create_db(self, client, DB_NAME):
@@ -12,13 +14,6 @@ class Graph:
     self.client.command( "create class Reference extends E" )
     self.client.command( "create class SR extends Paper" )
     self.client.command( "create class PS extends Paper" )
-
-  def insert_paper(self, JSON, Paper = "Paper"):
-    if(len (self.client.command("select from "+Paper+" where ids.doi = \""+json.loads(JSON).get("ids").get("doi")+"\"")) ==0):
-      self.client.command( "INSERT INTO "+Paper+" CONTENT" + str(JSON))
-      return True
-    else:
-      return False
 
   def insert_sr(self, node):
     doi = node.get_doi()

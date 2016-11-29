@@ -3,21 +3,21 @@ import json
 class Node:
   def __init__(self, linejson):
     info = {}
-    info["authors"] = linejson["authors"]
-    info["ids"] = linejson["ids"] or {}
-    info["abstract"] = linejson["abstract"]
-    info["title"] = linejson["title"]
-    info["publication_info"] = linejson["publication_info"]
-    info["keywords"] = linejson["keywords"]
-    info["citation"] = linejson["citation"]
+    info['authors'] = linejson.get('authors', [])
+    info['ids'] = linejson.get('ids', {})
+    info['abstract'] = linejson.get('abstract', {})
+    info['title'] = linejson.get('title', None)
+    info['publication_info'] = linejson.get('publication_info', {})
+    info['keywords'] = linejson.get('keywords', [])
+    info['citation'] = linejson.get('citation', None)
+    info['references'] = linejson.get('references', [])
     self.info = info
-    self.linejson = linejson
 
-  def get_doi():
-    return self.info.get('ids', {}).get('doi', None)
+  def get_doi(self):
+    return self.info['ids'].get('doi', None)
 
   def to_json(self):
     return json.dumps(self.info)
 
   def references(self):
-    return self.linejson.get('references', [])
+    return self.info['references']
