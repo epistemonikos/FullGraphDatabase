@@ -16,6 +16,15 @@ class Node:
   def get_doi(self):
     return self.info['ids'].get('doi', None)
 
+  def get_pubmed_id(self):
+    return self.info['ids'].get('pubmed_id', None)
+
+  def get_title(self):
+    return self.info['title']
+
+  def get_citation(self)
+    return self.info['citation']
+
   def to_json(self):
     return json.dumps(self.info)
 

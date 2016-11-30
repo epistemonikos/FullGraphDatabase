@@ -1,1 +1,2 @@
 pyorient
+python-Levenshtein
