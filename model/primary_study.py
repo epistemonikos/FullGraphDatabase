@@ -1,5 +1,6 @@
 from model.node import Node
 from Levenshtein import distance as levenshtein_distance
+import json
 
 class PrimaryStudy(Node):
 
@@ -11,13 +12,25 @@ class PrimaryStudy(Node):
     return 'PS'
 
   def exist_in(self, graph):
-    results = graph.execute('select * from PS')
-    #TODO: ARREGLAR ESTE FOR, PORQUE NO ESTOY SEGURO QUE ES 'results' (será un arreglo de jsons/dics?)
-    for json_ps in results: 
-      ps = PrimaryStudy(json_ps)
-      if this.equal_to(ps):
-        return True
+    results = graph.execute('select * from PS') #an array of orientDB Object
+    def orientdb_to_dict(odb):
+        info ={}
+        info['authors'] = odb.authors
+        info['ids'] = odb.ids
+        info['abstract'] = odb.abstract
+        info['title'] = odb.title
+        info['publication_info'] = odb.publication_info
+        info['keywords'] = odb.keywords
+        info['citation'] = odb.citation
+        info['references'] = odb.references
+        return info
+    for orientdb_object in results:
+        dict = orientdb_to_dict(orientdb_object)
+        ps = PrimaryStudy(dict)
+        if self.equal_to(ps):
+         return True
     return False
+
 
   def equal_to(self, primary_study):
     return (
