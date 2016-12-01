@@ -1,6 +1,6 @@
 from model.node import Node
 from Levenshtein import distance as levenshtein_distance
-import json
+import re
 
 class PrimaryStudy(Node):
 
@@ -28,7 +28,7 @@ class PrimaryStudy(Node):
         dict = orientdb_to_dict(orientdb_object)
         ps = PrimaryStudy(dict)
         if self.equal_to(ps):
-         return True
+            return True
     return False
 
 
@@ -72,6 +72,24 @@ class PrimaryStudy(Node):
         return distance < self.MAX_CITATION_TITLE_DISTANCE
     return False
 
-  def get_title_by_regex(self, citation):
-    #TODO: HACER QUE ESTO RETORNE EL TITULO DE LA CITATION USANDO REGEX
-    return ''
+def get_title_from_reference_if_exists(reference=None):
+    word = r"""(?:[\w\(\)'“”’\/\[\]-]+(\d+([,|\.]\d+)?)?)"""
+    start = r'''(?:\.|\(\d{4}\))\s+'''
+
+    TITLE_REGEX = r'''(?x)  %(start)s  (?:%(word)s (:?\s)){2,} (?:%(word)s (:?,?\s))* %(word)s (?=\s?\.)''' % locals()
+
+    if not reference:
+        return TITLE_REGEX
+
+    title = re.search(TITLE_REGEX, reference, re.UNICODE)
+
+    try:
+        title = title.group(0)
+    except:
+        title = None
+
+    year = '\(\d{4}\)'
+    if title:
+        title = re.compile(year).sub('', title)
+        title = title.replace('.', '').strip()
+    return title
