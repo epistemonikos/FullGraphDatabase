@@ -1,32 +1,53 @@
 import json
 
 class Node:
-  def __init__(self, linejson):
+  def __init__(self, linejson, ID=None):
     info = {}
-    info['authors'] = linejson.get('authors', [])
-    info['ids'] = linejson.get('ids', {})
-    info['abstract'] = linejson.get('abstract', {})
+    #basico
+    info['ids'] = linejson.get('ids', {}) or {}
+    info['abstract'] = linejson.get('abstract', {}) or {}
     info['title'] = linejson.get('title', None)
-    info['publication_info'] = linejson.get('publication_info', {})
-    info['keywords'] = linejson.get('keywords', [])
+    info['authors'] = linejson.get('authors', []) or []
+    info['year'] = linejson.get('year', None)
+    #revista
+    info['publication_info'] = linejson.get('publication_info', {}) or {}
     info['citation'] = linejson.get('citation', None)
-    info['references'] = linejson.get('references', [])
+    info['volume'] = linejson.get('volume', None)
+    info['journal'] = linejson.get('journal', None)
+    #referencias
+    info['references'] = linejson.get('references', []) or []
+    #cita
+    info['reference'] = linejson.get('reference', None)
+    #extra
+    info['keywords'] = linejson.get('keywords', None)
+    self.id = ID
     self.info = info
 
-  def get_doi(self):
-    return self.info['ids'].get('doi', None)
-
-  def get_pubmed_id(self):
-    return self.info['ids'].get('pubmed_id', None)
-
+  def set_id(self, id):
+    self.id = id
+  def get_id(self):
+    return self.id
   def get_title(self):
     return self.info['title']
-
+  def get_pages(self):
+    return self.info['pages']
+  def get_year(self):
+    return self.info['year']
+  def get_scholar_id(self):
+    return self.info['ids'].get('scholar', None)
+  def get_doi(self):
+    return self.info['ids'].get('doi', None)
+  def get_episte_id(self):
+    return self.info['ids'].get('episteId', None)
+  def get_pubmed_id(self):
+    return self.info['ids'].get('pmid', None)
   def get_citation(self):
-    return self.info['citation']
-
+    return self.info['reference']
+  def get_volumen(self):
+    return self.info['volume']
   def to_json(self):
     return json.dumps(self.info)
-
-  def references(self):
+  def get_reference(self):
+    return self.info['reference']
+  def get_references(self):
     return self.info['references']

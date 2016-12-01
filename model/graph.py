@@ -8,6 +8,10 @@ class Graph:
       self.create_db(self.client, DB_NAME)
     self.client.db_open(DB_NAME, USER, PASSWORD)
 
+  def find(id):
+    node = Node()
+    return node
+
   def execute(self, cmd):
     return self.client.command(cmd)
 
@@ -19,16 +23,19 @@ class Graph:
     self.execute( "create class PS extends Paper" )
 
   def insert(self, node):
-    if( self.exist(node) ):
+    result_existing = self.exist(node)
+    if( result_existing ):
+      node.set_id(result_existing._OrientRecord__rid)
       return False
     else:
-      self.execute( "INSERT INTO %s CONTENT%s" % ( node.klass(), str(node.to_json()) ) )
+      results = self.execute( "INSERT INTO %s CONTENT%s" % ( node.klass(), str(node.to_json()) ) )
+      node.set_id(results[0]._OrientRecord__rid)
       return True
 
   def make_reference(self, node_1, node_2):
-    id1 = node_1.get_doi()
-    id2 = node_2.get_doi()
-    self.execute("create edge Reference from (select from Paper where ids.doi = \""+id2+"\") to (select from Paper where ids.doi =\""+id1+"\")")
+    id1 = node_1.get_id()
+    id2 = node_2.get_id()
+    self.execute("create edge Reference from (select from Paper where @rid = \""+id1+"\") to (select from Paper where @rid =\""+id2+"\")")
     return True
 
   def exist(self, node):

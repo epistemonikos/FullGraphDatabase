@@ -12,7 +12,6 @@ class PrimaryStudy(Node):
     return 'PS'
 
   def exist_in(self, graph):
-    results = graph.execute('select * from PS') #an array of orientDB Object
     def orientdb_to_dict(odb):
         info ={}
         info['authors'] = odb.authors
@@ -23,23 +22,26 @@ class PrimaryStudy(Node):
         info['keywords'] = odb.keywords
         info['citation'] = odb.citation
         info['references'] = odb.references
+        info['reference'] = odb.reference
         return info
+    results = graph.execute('select * from PS') #an array of orientDB Object
     for orientdb_object in results:
         dict = orientdb_to_dict(orientdb_object)
         ps = PrimaryStudy(dict)
         if self.equal_to(ps):
-         return True
+         return orientdb_object
     return False
 
-
   def equal_to(self, primary_study):
-    return (
-        primary_study.equal_doi(self.get_doi()) or
+    to_return = (primary_study.equal_doi(self.get_doi()) or
         primary_study.equal_pubmed_id(self.get_pubmed_id()) or
         primary_study.equal_title(self.get_title()) or
         primary_study.equal_citation(self.get_citation()) or 
         primary_study.equal_citation_title(self.get_citation())
       )
+    # if to_return:
+    #   import pdb;pdb.set_trace();
+    return to_return
 
   def equal_title(self, title):
     if title and self.get_title():
@@ -62,16 +64,16 @@ class PrimaryStudy(Node):
       return distance < self.MAX_CITATION_DISTANCE
     return False
 
+  def get_title_in_citation_by_regex(self, citation):
+    #TODO: HACER QUE ESTO RETORNE EL TITULO DE LA CITATION USANDO REGEX
+    return ''
+
   def equal_citation_title(self, citation):
     self_citation = self.get_citation()
     if citation and self_citation:
-      citation_title = get_title_in_citation_by_regex(citation_title)
-      self_citation_title = get_title_in_citation_by_regex(self_citation_title)
+      citation_title = self.get_title_in_citation_by_regex(citation)
+      self_citation_title = self.get_title_in_citation_by_regex(self_citation)
       if citation_title and self_citation_title:
         distance = levenshtein_distance(citation_title, self_citation_title)
         return distance < self.MAX_CITATION_TITLE_DISTANCE
     return False
-
-  def get_title_by_regex(self, citation):
-    #TODO: HACER QUE ESTO RETORNE EL TITULO DE LA CITATION USANDO REGEX
-    return ''

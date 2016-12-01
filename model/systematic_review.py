@@ -8,4 +8,7 @@ class SystematicReview(Node):
   def exist_in(self, graph):
     doi = self.get_doi()
     results = graph.execute( 'select from %s where ids.doi = "%s"' % (self.klass(), doi) )
-    return len(results) != 0
+    if(len(results) == 0):
+      return False
+    else:
+      return results[0]

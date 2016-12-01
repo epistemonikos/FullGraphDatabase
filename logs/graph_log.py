@@ -7,20 +7,18 @@ LOG_FILE_PATH = "resources/log.log"
 def log_insert(self, node, returned):
     file = open(LOG_FILE_PATH, "a")
     if returned:
-      inserted = "Inserted"
+      info = "InsertedNode"
     else:
-      inserted = "No inserted"
-    file.write( inserted + " "+ node.klass() +", with doi " + node.get_doi() +"\n" )
+      info = "NoinsertedNode"
+    file.write( "%s\t%s\t%s\t%s\n" % (info, node.klass(), node.get_id(), node.info) )
     file.close()
 
 @Log(Graph, Graph.make_reference)
 def log_make_reference(self, node_1, node_2, returned):
-    id1 = node_1.get_doi()
-    id2 = node_2.get_doi()
     file = open(LOG_FILE_PATH, "a")
     if returned:
-      maked = "Maked"
+      info = "CreatedReference"
     else:
-      maked = "No Maked"
-    file.write( maked + " reference between doc1 with doi "+id1+" and doc2 with doi "+ id2+"\n" )
+      info = "CouldntCreateReference"
+    file.write( "%s\t%s\t%s\t%s\t%s\n" % (info, node_1.get_id(), node_2.get_id(), node_1.info, node_2.info)  )
     file.close()
