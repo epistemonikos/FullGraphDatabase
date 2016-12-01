@@ -22,7 +22,7 @@ class Node:
   def get_title(self):
     return self.info['title']
 
-  def get_citation(self)
+  def get_citation(self):
     return self.info['citation']
 
   def to_json(self):

@@ -14,7 +14,7 @@ PORT = 2424
 USER = 'admin'
 PASSWORD = 'admin'
 DB_NAME = 'epistemonikos'
-FILE_PATH = 'example.tsv'
+FILE_PATH = 'test.txt'
 
 args = sys.argv[1:]
 if(len(args) > 1):
