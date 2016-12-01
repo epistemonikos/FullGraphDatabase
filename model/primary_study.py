@@ -1,6 +1,6 @@
 from model.node import Node
 from Levenshtein import distance as levenshtein_distance
-import json
+import re
 
 class PrimaryStudy(Node):
 
@@ -64,10 +64,6 @@ class PrimaryStudy(Node):
       return distance < self.MAX_CITATION_DISTANCE
     return False
 
-  def get_title_in_citation_by_regex(self, citation):
-    #TODO: HACER QUE ESTO RETORNE EL TITULO DE LA CITATION USANDO REGEX
-    return ''
-
   def equal_citation_title(self, citation):
     self_citation = self.get_citation()
     if citation and self_citation:
@@ -77,3 +73,18 @@ class PrimaryStudy(Node):
         distance = levenshtein_distance(citation_title, self_citation_title)
         return distance < self.MAX_CITATION_TITLE_DISTANCE
     return False
+
+  def get_title_in_citation_by_regex(self, citation):
+      word = r"""(?:[\w\(\)'“”’\/\[\]-]+(\d+([,|\.]\d+)?)?)"""
+      start = r'''(?:\.|\(\d{4}\))\s+'''
+      TITLE_REGEX = r'''(?x)  %(start)s  (?:%(word)s (:?\s)){2,} (?:%(word)s (:?,?\s))* %(word)s (?=\s?\.)''' % locals()
+      title = re.search(TITLE_REGEX, reference, re.UNICODE)
+      try:
+          title = title.group(0)
+      except:
+          title = None
+      year = '\(\d{4}\)'
+      if title:
+          title = re.compile(year).sub('', title)
+          title = title.replace('.', '').strip()
+      return title
