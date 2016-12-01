@@ -51,3 +51,12 @@ class Node:
     return self.info['reference']
   def get_references(self):
     return self.info['references']
+  def complete(self,json_node):
+    if (self.get_title() == None):
+        self.info['title'] = json_node.get('title')
+    if (self.get_episte_id() == None):
+        self.info['ids']['episteId'] = json_node.get('ids').get('episteId',None)
+    if (self.get_pubmed_id() == None):
+        self.info['ids']['pmid'] = json_node.get('ids').get('pmid',None)
+    if (self.get_reference() == None):
+        self.info['reference'] = json_node.get('reference')

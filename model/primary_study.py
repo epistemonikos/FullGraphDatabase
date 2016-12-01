@@ -11,22 +11,11 @@ class PrimaryStudy(Node):
   def klass(self):
     return 'PS'
 
+
   def exist_in(self, graph):
-    def orientdb_to_dict(odb):
-        info ={}
-        info['authors'] = odb.authors
-        info['ids'] = odb.ids
-        info['abstract'] = odb.abstract
-        info['title'] = odb.title
-        info['publication_info'] = odb.publication_info
-        info['keywords'] = odb.keywords
-        info['citation'] = odb.citation
-        info['references'] = odb.references
-        info['reference'] = odb.reference
-        return info
     results = graph.execute('select * from PS') #an array of orientDB Object
     for orientdb_object in results:
-        dict = orientdb_to_dict(orientdb_object)
+        dict = graph.orientdb_to_dict(orientdb_object)
         ps = PrimaryStudy(dict)
         if self.equal_to(ps):
          return orientdb_object
@@ -78,7 +67,7 @@ class PrimaryStudy(Node):
       word = r"""(?:[\w\(\)'“”’\/\[\]-]+(\d+([,|\.]\d+)?)?)"""
       start = r'''(?:\.|\(\d{4}\))\s+'''
       TITLE_REGEX = r'''(?x)  %(start)s  (?:%(word)s (:?\s)){2,} (?:%(word)s (:?,?\s))* %(word)s (?=\s?\.)''' % locals()
-      title = re.search(TITLE_REGEX, reference, re.UNICODE)
+      title = re.search(TITLE_REGEX, citation, re.UNICODE)
       try:
           title = title.group(0)
       except:

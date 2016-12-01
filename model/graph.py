@@ -15,6 +15,23 @@ class Graph:
   def execute(self, cmd):
     return self.client.command(cmd)
 
+  def orientdb_to_dict(self,odb):
+        info ={}
+        info['authors'] = odb.authors
+        info['ids'] = odb.ids
+        info['abstract'] = odb.abstract
+        info['title'] = odb.title
+        info['publication_info'] = odb.publication_info
+        info['keywords'] = odb.keywords
+        info['citation'] = odb.citation
+        info['references'] = odb.references
+        info['reference'] = odb.reference
+        return info
+
+  def search_in_graph(self,klass,doi):
+    list_odb = self.execute( 'select from %s where ids.doi = "%s"' %(klass ,doi) )
+    return  list_odb
+
   def create_db(self, client, DB_NAME):
     self.client.db_create( DB_NAME, pyorient.DB_TYPE_GRAPH, pyorient.STORAGE_TYPE_MEMORY )
     self.execute( "create class Paper extends V" )
@@ -25,7 +42,11 @@ class Graph:
   def insert(self, node):
     result_existing = self.exist(node)
     if( result_existing ):
+        # x = Node(self.orientdb_to_dict(result_existing))
+        # x.complete(node)
+        # self.execute(update x.info where id = result_existing._OrientRecord__rid)
       node.set_id(result_existing._OrientRecord__rid)
+      node.complete(self.orientdb_to_dict(result_existing))
       return False
     else:
       results = self.execute( "INSERT INTO %s CONTENT%s" % ( node.klass(), str(node.to_json()) ) )
