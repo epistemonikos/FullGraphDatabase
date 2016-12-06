@@ -12,8 +12,8 @@ class Graph:
     return self.client.command(cmd)
 
   def search_in_graph(self,klass,doi):
-    list_odb = self.execute( 'select from %s where ids.doi = "%s"' %(klass ,doi) )
-    return  list_odb
+    results_odb = self.execute( 'select from %s where ids.doi = "%s"' %(klass ,doi) )
+    return results_odb
 
   def create_db(self, client, DB_NAME):
     self.client.db_create( DB_NAME, pyorient.DB_TYPE_GRAPH, pyorient.STORAGE_TYPE_MEMORY )
@@ -26,7 +26,7 @@ class Graph:
     node_existing = self.exist(node)
     if( node_existing ):
       node.set_id(node_existing.get_id())
-      node.complete(node_existing.info)
+      node_existing.soft_update(graph, node)
       return False
     else:
       results = self.execute( "INSERT INTO %s CONTENT%s" % ( node.klass(), str(node.to_json()) ) )
