@@ -1,27 +1,47 @@
 import json
 
 class Node:
-  def __init__(self, linejson, ID=None):
+  
+  @classmethod
+  def new_by_dic(klass, dic):
+    return Node(dic)
+
+  @classmethod
+  def new_by_orientdb_object(klass, orient_db_object):
+    dic ={}
+    dic['authors'] = orient_db_object.authors
+    dic['ids'] = orient_db_object.ids
+    dic['abstract'] = orient_db_object.abstract
+    dic['title'] = orient_db_object.title
+    dic['publication_info'] = orient_db_object.publication_info
+    dic['keywords'] = orient_db_object.keywords
+    dic['citation'] = orient_db_object.citation
+    dic['references'] = orient_db_object.references
+    dic['reference'] = orient_db_object.reference
+    return Node(dic, ID=orient_db_object._OrientRecord__rid)
+
+
+  def __init__(self, dic, ID=None):
     info = {}
     #basico
-    info['ids'] = linejson.get('ids', {}) or {}
-    info['abstract'] = linejson.get('abstract', {}) or {}
-    info['title'] = linejson.get('title', None)
-    info['authors'] = linejson.get('authors', []) or []
-    info['year'] = linejson.get('year', None)
+    info['ids'] = dic.get('ids', {}) or {}
+    info['abstract'] = dic.get('abstract', {}) or {}
+    info['title'] = dic.get('title', None)
+    info['authors'] = dic.get('authors', []) or []
+    info['year'] = dic.get('year', None)
     #revista
-    info['publication_info'] = linejson.get('publication_info', {}) or {}
-    info['citation'] = linejson.get('citation', None)
-    info['volume'] = linejson.get('volume', None)
-    info['journal'] = linejson.get('journal', None)
+    info['publication_info'] = dic.get('publication_info', {}) or {}
+    info['citation'] = dic.get('citation', None)
+    info['volume'] = dic.get('volume', None)
+    info['journal'] = dic.get('journal', None)
     #referencias
-    info['references'] = linejson.get('references', []) or []
+    info['references'] = dic.get('references', []) or []
     #cita
-    info['reference'] = linejson.get('reference', None)
+    info['reference'] = dic.get('reference', None)
     #extra
-    info['keywords'] = linejson.get('keywords', None)
-    self.id = ID
+    info['keywords'] = dic.get('keywords', None)
     self.info = info
+    self.id = ID
 
   def set_id(self, id):
     self.id = id
@@ -51,3 +71,13 @@ class Node:
     return self.info['reference']
   def get_references(self):
     return self.info['references']
+  
+  def complete(self, json_node):
+    if (self.get_title() == None):
+        self.info['title'] = json_node.get('title')
+    if (self.get_episte_id() == None):
+        self.info['ids']['episteId'] = json_node.get('ids').get('episteId',None)
+    if (self.get_pubmed_id() == None):
+        self.info['ids']['pmid'] = json_node.get('ids').get('pmid',None)
+    if (self.get_reference() == None):
+        self.info['reference'] = json_node.get('reference')

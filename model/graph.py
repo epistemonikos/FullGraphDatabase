@@ -8,12 +8,12 @@ class Graph:
       self.create_db(self.client, DB_NAME)
     self.client.db_open(DB_NAME, USER, PASSWORD)
 
-  def find(id):
-    node = Node()
-    return node
-
   def execute(self, cmd):
     return self.client.command(cmd)
+
+  def search_in_graph(self,klass,doi):
+    list_odb = self.execute( 'select from %s where ids.doi = "%s"' %(klass ,doi) )
+    return  list_odb
 
   def create_db(self, client, DB_NAME):
     self.client.db_create( DB_NAME, pyorient.DB_TYPE_GRAPH, pyorient.STORAGE_TYPE_MEMORY )
@@ -23,9 +23,10 @@ class Graph:
     self.execute( "create class PS extends Paper" )
 
   def insert(self, node):
-    result_existing = self.exist(node)
-    if( result_existing ):
-      node.set_id(result_existing._OrientRecord__rid)
+    node_existing = self.exist(node)
+    if( node_existing ):
+      node.set_id(node_existing.get_id())
+      node.complete(node_existing.info)
       return False
     else:
       results = self.execute( "INSERT INTO %s CONTENT%s" % ( node.klass(), str(node.to_json()) ) )
@@ -39,4 +40,5 @@ class Graph:
     return True
 
   def exist(self, node):
-    return node.exist_in(self)
+    result_orient_db = node.exist_in(self)
+          

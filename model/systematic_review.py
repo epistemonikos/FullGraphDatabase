@@ -7,8 +7,8 @@ class SystematicReview(Node):
 
   def exist_in(self, graph):
     doi = self.get_doi()
-    results = graph.execute( 'select from %s where ids.doi = "%s"' % (self.klass(), doi) )
+    results_odb = graph.search_in_graph(self.klass(), doi)
     if(len(results) == 0):
       return False
     else:
-      return results[0]
+      return Node.new_by_orientdb_object(results_odb[0])

@@ -9,24 +9,11 @@ class PrimaryStudy(Node):
     return 'PS'
 
   def exist_in(self, graph):
-    def orientdb_to_dict(odb):
-        info ={}
-        info['authors'] = odb.authors
-        info['ids'] = odb.ids
-        info['abstract'] = odb.abstract
-        info['title'] = odb.title
-        info['publication_info'] = odb.publication_info
-        info['keywords'] = odb.keywords
-        info['citation'] = odb.citation
-        info['references'] = odb.references
-        info['reference'] = odb.reference
-        return info
-    results = graph.execute('select * from PS') #an array of orientDB Object
-    for orientdb_object in results:
-        dict = orientdb_to_dict(orientdb_object)
-        ps = PrimaryStudy(dict)
+    results_odb = graph.execute('select * from PS') #an array of orientDB Object
+    for orientdb_object in results_odb:
+        ps = Node.new_by_orientdb_object(orientdb_object)
         if self.equal_to(ps):
-         return orientdb_object
+         return ps
     return False
 
   def equal_to(self, primary_study):
@@ -104,4 +91,3 @@ class PrimaryStudy(Node):
     normalized = [x for x in normalized if len(x) > 2]
 
     return normalized
-
