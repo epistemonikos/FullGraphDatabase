@@ -1,12 +1,9 @@
 from model.node import Node
-from Levenshtein import distance as levenshtein_distance
-import re
 
 class PrimaryStudy(Node):
 
-  MAX_CITATION_DISTANCE = 20
   MAX_TITLE_DISTANCE = 10
-  MAX_CITATION_TITLE_DISTANCE = 5
+  MIN_RATIO_FOR_CITATIONS = 0.75
   
   def klass(self):
     return 'PS'
@@ -33,18 +30,16 @@ class PrimaryStudy(Node):
     return False
 
   def equal_to(self, primary_study):
-    to_return = (primary_study.equal_doi(self.get_doi()) or
+    return (
         primary_study.equal_pubmed_id(self.get_pubmed_id()) or
+        primary_study.equal_doi(self.get_doi()) or
         primary_study.equal_title(self.get_title()) or
-        primary_study.equal_citation(self.get_citation()) or 
-        primary_study.equal_citation_title(self.get_citation())
+        primary_study.equal_citation(self.get_citation())
       )
-    # if to_return:
-    #   import pdb;pdb.set_trace();
-    return to_return
 
   def equal_title(self, title):
     if title and self.get_title():
+      from Levenshtein import distance as levenshtein_distance
       distance = levenshtein_distance(title, self.get_title())
       return distance < self.MAX_TITLE_DISTANCE
 
@@ -60,31 +55,53 @@ class PrimaryStudy(Node):
 
   def equal_citation(self, citation):
     if citation and self.get_citation():
-      distance = levenshtein_distance(citation, self.get_citation())
-      return distance < self.MAX_CITATION_DISTANCE
+
+      # normalizar las citas
+      c1 = self._normalize_citation(citation)
+      c2 = self._normalize_citation(self.get_citation())
+
+      #encontrar la cita mas larga (max_cita) y la cita mas corta (min_cita)
+      min_cita = c1
+      if len(c1) > len(c2):
+        min_cita = c2
+      max_cita = c1
+      if len(c1) < len(c2):
+        max_cita = c2
+      len_max_cita = len(max_cita)
+      len_min_cita = len(min_cita)
+
+      #número de elementos en min_cita que están tambien en max_cita
+      count = 0 
+      for x in min_cita:
+        if x in max_cita:
+          count += 1
+          max_cita.remove(x)
+
+      #invento de fuzzy match
+      ratio_1 = count/len_max_cita*100
+
+      #típico fuzzy set match
+      from fuzzywuzzy import fuzz
+      ratio_2 = fuzz.token_set_ratio(citation, self.get_citation())
+
+      #ratio final para decidir
+      ratio = (ratio_1 + ratio_2)/2
+      return ratio >= self.MIN_RATIO_FOR_CITATIONS
     return False
 
-  def equal_citation_title(self, citation):
-    self_citation = self.get_citation()
-    if citation and self_citation:
-      citation_title = self.get_title_in_citation_by_regex(citation)
-      self_citation_title = self.get_title_in_citation_by_regex(self_citation)
-      if citation_title and self_citation_title:
-        distance = levenshtein_distance(citation_title, self_citation_title)
-        return distance < self.MAX_CITATION_TITLE_DISTANCE
-    return False
+  def _normalize_citation(self, citation):
 
-  def get_title_in_citation_by_regex(self, citation):
-      word = r"""(?:[\w\(\)'“”’\/\[\]-]+(\d+([,|\.]\d+)?)?)"""
-      start = r'''(?:\.|\(\d{4}\))\s+'''
-      TITLE_REGEX = r'''(?x)  %(start)s  (?:%(word)s (:?\s)){2,} (?:%(word)s (:?,?\s))* %(word)s (?=\s?\.)''' % locals()
-      title = re.search(TITLE_REGEX, reference, re.UNICODE)
-      try:
-          title = title.group(0)
-      except:
-          title = None
-      year = '\(\d{4}\)'
-      if title:
-          title = re.compile(year).sub('', title)
-          title = title.replace('.', '').strip()
-      return title
+    #quitar puntuacion
+    normalized = citation.replace('.',' ')
+    normalized = citation.replace(',',' ')
+    normalized = citation.replace(';',' ')
+
+    #quitar stop_words y hace un arreglo de tokens
+    from model.string_helpers import without_stop_words
+    normalized = without_stop_words(normalized.lower()).split()
+
+    #quitar palabras demasiado cortas
+    normalized = [x for x in normalized if len(x) > 2]
+
+    return normalized
+

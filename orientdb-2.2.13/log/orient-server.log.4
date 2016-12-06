@@ -1,0 +1,30 @@
+
+2016-11-29 13:50:25:580 INFO  Loading configuration from: /Users/samhernandez/Tools/orientdb-2.2.13/config/orientdb-server-config.xml... [OServerConfigurationLoaderXml]
+2016-11-29 13:50:25:862 INFO  OrientDB Server v2.2.13 (build 2.2.x@r90d7caa1e4af3fad86594e592c64dc1202558ab1; 2016-11-15 12:04:05+0000) is starting up... [OServer]
+2016-11-29 13:50:25:868 INFO  Databases directory: /Users/samhernandez/Tools/orientdb-2.2.13/databases [OServer]
+2016-11-29 13:50:25:939 INFO  OrientDB auto-config DISKCACHE=5.653MB (heap=491MB direct=524.288MB os=8.192MB) [orientechnologies]
+2016-11-29 13:50:26:407 INFO  Listening binary connections on 0.0.0.0:2424 (protocol v.36, socket=default) [OServerNetworkListener]
+2016-11-29 13:50:26:411 INFO  Listening http connections on 0.0.0.0:2480 (protocol v.10, socket=default) [OServerNetworkListener]
+2016-11-29 13:50:26:424 INFO  Installing dynamic plugin 'studio-2.2.zip'... [OServerPluginManager]
+2016-11-29 13:50:26:429 INFO  ODefaultPasswordAuthenticator is active [ODefaultPasswordAuthenticator]
+2016-11-29 13:50:26:431 INFO  OServerConfigAuthenticator is active [OServerConfigAuthenticator]
+2016-11-29 13:50:26:432 INFO  OSystemUserAuthenticator is active [OSystemUserAuthenticator]
+2016-11-29 13:50:26:469 INFO  Installed GREMLIN language v.2.6.0 - graph.pool.max=50 [OGraphServerHandler]
+2016-11-29 13:50:26:470 INFO  [OVariableParser.resolveVariables] Error on resolving property: distributed [orientechnologies]
+2016-11-29 13:50:26:475 WARNI Authenticated clients can execute any kind of code into the server by using the following allowed languages: [sql] [OServerSideScriptInterpreter]
+2016-11-29 13:50:26:478 INFO  OrientDB Studio available at http://192.168.99.113:2480/studio/index.html [OServer]
+2016-11-29 13:50:26:479 INFO  OrientDB Server is active v2.2.13 (build 2.2.x@r90d7caa1e4af3fad86594e592c64dc1202558ab1; 2016-11-15 12:04:05+0000). [OServer]
+2016-11-29 15:53:12:609 INFO  {db=test2} Created database 'test2' of type 'memory' [ONetworkProtocolBinary]Error executing request
+com.orientechnologies.common.io.OIOException: Impossible to read a chunk of length:541611092 max allowed chunk length:16777216 see NETWORK_BINARY_MAX_CONTENT_LENGTH settings 
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:160)
+	at com.orientechnologies.orient.server.network.protocol.binary.ONetworkProtocolBinary.onBeforeOperationalRequest(ONetworkProtocolBinary.java:410)
+	at com.orientechnologies.orient.server.network.protocol.binary.ONetworkProtocolBinary.sessionRequest(ONetworkProtocolBinary.java:304)
+	at com.orientechnologies.orient.server.network.protocol.binary.ONetworkProtocolBinary.execute(ONetworkProtocolBinary.java:198)
+	at com.orientechnologies.common.thread.OSoftThread.run(OSoftThread.java:77)
+
+2016-11-29 16:12:02:237 SEVER Internal server error:
+Error on parsing query
+Query:  B
+------^
+	DB name="test2" [ONetworkProtocolHttpDb]
+2016-11-29 16:37:43:323 INFO  {db=epistemonikos} Created database 'epistemonikos' of type 'memory' [ONetworkProtocolBinary]

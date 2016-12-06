@@ -1,2 +1,4 @@
 pyorient
 python-Levenshtein
+stop-words
+fuzzywuzzy
