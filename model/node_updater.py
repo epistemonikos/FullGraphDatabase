@@ -13,6 +13,8 @@ class NodeUpdater:
       other_updater.update_pubmed_id_to(graph, self_node)
     if not self_node.get_reference():
       other_updater.update_reference_to(graph, self_node)
+    if not self_node.get_doi():
+      other_updater.update_doi_to(graph, self_node)
 
   def update_title_to(self, graph, other_node):
     self_title = self.node.get_title()
