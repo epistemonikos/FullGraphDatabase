@@ -13,7 +13,7 @@ class Graph:
     return self.client.command(cmd)
 
   def search_in_graph(self,klass, episte_id):
-    results_odb = self.execute( 'select from %s where ids.episteId = "%s"' % (klass ,episte_id) )
+    results_odb = self.execute( 'select from {} where ids.episteId = "{}"'.format(klass ,episte_id) )
     return results_odb
 
   def create_db(self, client, DB_NAME):
@@ -31,13 +31,13 @@ class Graph:
         node_existing.soft_update(self, node)
       return False
     else:
-      results = self.execute( "INSERT INTO %s CONTENT%s" % ( node.klass(), str(node.to_json()) ) )
+      results = self.execute( "INSERT INTO {} CONTENT{}".format( node.klass(), str(node.to_json()) ) )
       node.set_id(results[0]._OrientRecord__rid)
       return True
 
   def destroy(self, node):
     episte_id = node.get_episte_id()
-    self.execute( 'DELETE VERTEX SR WHERE ids.episteId = "%s"' % (episte_id) )
+    self.execute( 'DELETE VERTEX SR WHERE ids.episteId = "{}"'.format(episte_id) )
 
   def make_reference(self, node_1, node_2):
     id1 = node_1.get_id()

@@ -14,7 +14,7 @@ def exist_in_log(self, graph, returned, from_systematic_review=None):
   else:
     info = "NewPrimaryStudy"
     orient_db_id = '-'
-  file.write( "%s\t%s\t%s\n" % (info, self.info, orient_db_id) )
+  file.write( "{}\t{}\t{}\n".format(info, self.info, orient_db_id) )
   file.close()
 
 @Log(PrimaryStudy, PrimaryStudy.equal_to)
@@ -24,5 +24,5 @@ def equal_to_log(self, primary_study, returned):
     info = 'EqualsPrimaryStudy'
   else:
     info = 'DistinctsPrimaryStudy'
-  file.write( "%s\t%s\t%s\n" % (info, self.info, primary_study.info) )
+  file.write( "{}\t{}\t{}\n".format(info, self.info, primary_study.info) )
   file.close()

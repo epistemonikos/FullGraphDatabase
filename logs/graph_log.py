@@ -12,7 +12,7 @@ def log_insert(self, node, returned, from_systematic_review=None):
       info = "InsertedNode"
     else:
       info = "NoinsertedNode"
-    file.write( "%s\t%s\t%s\t%s\n" % (info, node.klass(), node.get_id(), node.info) )
+    file.write( "{}\t{}\t{}\t{}\n".format(info, node.klass(), node.get_id(), node.info) )
     file.close()
 
 @Log(Graph, Graph.make_reference)
@@ -22,5 +22,5 @@ def log_make_reference(self, node_1, node_2, returned):
       info = "CreatedReference"
     else:
       info = "CouldntCreateReference"
-    file.write( "%s\t%s\t%s\t%s\t%s\n" % (info, node_1.get_id(), node_2.get_id(), node_1.info, node_2.info)  )
+    file.write( "{}\t{}\t{}\t{}\t{}\n".format(info, node_1.get_id(), node_2.get_id(), node_1.info, node_2.info)  )
     file.close()

@@ -23,7 +23,7 @@ class NodeUpdater:
       self_title = str(self_title).replace("'",'\'')
       other_node.set_title(self_title)
       rid = other_node.get_id()
-      graph.execute( "UPDATE PS SET title = '%s' WHERE @rid = '%s'" % (self_title, rid) )
+      graph.execute( "UPDATE PS SET title = '{}' WHERE @rid = '{}'".format(self_title, rid) )
 
 
   def update_episte_id_to(self, graph, other_node):
@@ -32,7 +32,7 @@ class NodeUpdater:
       self_episte_id = str(self_episte_id).replace("'",'\'')
       other_node.set_episte_id(self_episte_id)
       rid = other_node.get_id()
-      graph.execute( "UPDATE PS SET ids.episteId = '%s' WHERE @rid = '%s'" % (self_episte_id, rid) )
+      graph.execute( "UPDATE PS SET ids.episteId = '{}' WHERE @rid = '{}'".format(self_episte_id, rid) )
 
   def update_doi_to(self, graph, other_node):
     self_doi = self.node.get_doi()
@@ -40,7 +40,7 @@ class NodeUpdater:
       self_doi = str(self_doi).replace("'",'\'')
       other_node.set_doi(self_doi)
       rid = other_node.get_id()
-      graph.execute( "UPDATE PS SET ids.doi = '%s' WHERE @rid = '%s'" % (self_doi, rid) )
+      graph.execute( "UPDATE PS SET ids.doi = '{}' WHERE @rid = '{}'".format(self_doi, rid) )
 
 
   def update_pubmed_id_to(self, graph, other_node):
@@ -49,7 +49,7 @@ class NodeUpdater:
       self_pubmed_id = str(self_pubmed_id).replace("'",'\'')
       other_node.set_pubmed_id(self_pubmed_id)
       rid = other_node.get_id()
-      graph.execute( "UPDATE PS SET ids.pmid = '%s' WHERE @rid = '%s'" % (self_pubmed_id, rid) )
+      graph.execute( "UPDATE PS SET ids.pmid = '{}' WHERE @rid = '{}'".format(self_pubmed_id, rid) )
 
 
   def update_reference_to(self, graph, other_node):
@@ -58,5 +58,5 @@ class NodeUpdater:
       self_reference = str(self_reference).replace("'",'\'')
       other_node.set_reference(self_reference)
       rid = other_node.get_id()
-      graph.execute( "UPDATE PS SET reference = '%s' WHERE @rid = '%s'" % (self_reference, rid) )
+      graph.execute( "UPDATE PS SET reference = '{}' WHERE @rid = '{}'".format(self_reference, rid) )
 

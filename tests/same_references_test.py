@@ -50,8 +50,8 @@ def get_rating(i1, i2):
   rating_1 = count/len_max_cita*100
   rating_2 = fuzz.token_set_ratio(references[i1],references[i2])
   rating_3 = (rating_1 + rating_2)/2
-  print( "%s\t%s\t%s\t%s\t%s\n" % (i1, i2, rating_1, rating_2, rating_3) )
-  print( "%s\t%s\t%s\t%s\t%s\n" % (i1, i2, rating_1 > NUMERO_MAGICO, rating_2 > NUMERO_MAGICO, rating_3 > NUMERO_MAGICO) )
+  print( "{}\t{}\t{}\t{}\t{}\n".format(i1, i2, rating_1, rating_2, rating_3) )
+  print( "{}\t{}\t{}\t{}\t{}\n".format(i1, i2, rating_1 > NUMERO_MAGICO, rating_2 > NUMERO_MAGICO, rating_3 > NUMERO_MAGICO) )
 
 funcs = [get_rating]
 
