@@ -6,5 +6,5 @@
 *.pyc
 *.log
 
-!/orientdb-2.2.13/*
-!/orientdb-2.2.13/**/*
+/orientdb-2.2.13/*
+/orientdb-2.2.13/**/*
