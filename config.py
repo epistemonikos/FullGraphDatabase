@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 HOST = 'localhost'
 PORT = 2424
 USER = 'root'

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 from model.node_updater import NodeUpdater
 

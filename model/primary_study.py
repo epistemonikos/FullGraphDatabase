@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from model.node import Node
 from model.primary_study_comparator import PrimaryStudyComparator
 

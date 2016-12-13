@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from stop_words import get_stop_words
 
 def without_stop_words(raw):

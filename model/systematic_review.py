@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from model.node import Node
 
 class SystematicReview(Node):

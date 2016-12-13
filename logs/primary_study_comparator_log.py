@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from logs.log import Log
 from model.primary_study_comparator import PrimaryStudyComparator
 from fuzzywuzzy import fuzz as fuzzy_distance

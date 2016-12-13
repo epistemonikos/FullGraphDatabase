@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from fuzzywuzzy import fuzz as fuzzy_distance
 from Levenshtein import distance as levenshtein_distance
 from model.string_helpers import without_stop_words

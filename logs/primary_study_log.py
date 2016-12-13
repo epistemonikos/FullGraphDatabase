@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from logs.log import Log
 from model.primary_study import PrimaryStudy
 
