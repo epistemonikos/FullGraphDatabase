@@ -81,7 +81,7 @@ class Node:
   def get_reference(self):
     return (self.info['reference'] or '').encode('utf-8')
   def get_references(self):
-    return (self.info['references'] or '').encode('utf-8')
+    return [(x or '').encode('utf-8') for x in self.info['references']]
   def get_citation(self):
     return (self.get_reference() or '').encode('utf-8')
 
