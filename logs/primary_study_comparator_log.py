@@ -12,21 +12,21 @@ LOG_FILE_PATH = "resources/logs/primary_study_comparator_log.log"
 def equal_title_log(self, title, returned):
   file = open(LOG_FILE_PATH, "a")
   self_title = self.primary_study.get_title() or 'None'
-  file.write( "{}\t{}\t{}\t{}\n".format('equal_title', self_title, title, returned) )
+  file.write( "{}\t{}\t{}\t{}\n".format('equal_title', self_title.encode('utf-8'), title.encode('utf-8'), returned) )
   file.close()
 
 @Log(PrimaryStudyComparator, PrimaryStudyComparator.equal_doi)
 def equal_doi_log(self, doi, returned):
   file = open(LOG_FILE_PATH, "a")
   self_doi = self.primary_study.get_doi() or 'None'
-  file.write( "{}\t{}\t{}\t{}\n".format('equal_doi', self_doi, doi, returned) )
+  file.write( "{}\t{}\t{}\t{}\n".format('equal_doi', self_doi.encode('utf-8'), doi.encode('utf-8'), returned) )
   file.close()
 
 @Log(PrimaryStudyComparator, PrimaryStudyComparator.equal_pubmed_id)
 def equal_pubmed_id_log(self, pubmed_id, returned):
   file = open(LOG_FILE_PATH, "a")
   self_pubmed_id = self.primary_study.get_pubmed_id() or 'None'
-  file.write( "{}\t{}\t{}\t{}\n".format('equal_pubmed_id', self_pubmed_id, pubmed_id, returned) )
+  file.write( "{}\t{}\t{}\t{}\n".format('equal_pubmed_id', self_pubmed_id.encode('utf-8'), pubmed_id.encode('utf-8'), returned) )
   file.close()
 
 @Log(PrimaryStudyComparator, PrimaryStudyComparator.equal_citation)
@@ -56,5 +56,5 @@ def equal_citation_log(self, other_citation, returned):
     ratio = (ratio_1 + ratio_2)/2
   file = open(LOG_FILE_PATH, "a")
   self_citation = self.primary_study.get_citation() or 'None'
-  file.write( "{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format('equal_citation', self_citation, other_citation, returned, ratio_1, ratio_2, ratio) )
+  file.write( "{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format('equal_citation', self_citation.encode('utf-8'), other_citation.encode('utf-8'), returned, ratio_1, ratio_2, ratio) )
   file.close()
