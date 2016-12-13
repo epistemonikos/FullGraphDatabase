@@ -232,3 +232,4 @@ Encountered "" at line 1, column 24.
 Was expecting one of:
     
 	DB name="epistemonikos" [ONetworkProtocolHttpDb]
+2016-12-13 14:12:26:574 WARNI Received signal: SIGTERM [OSignalHandler]
