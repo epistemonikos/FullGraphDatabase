@@ -61,29 +61,29 @@ class Node:
 
   #gets
   def get_id(self):
-    return str(self.id or '')
+    return (self.id or '').encode('utf-8')
   def get_scholar_id(self):
-    return str(self.info['ids'].get('scholar', None) or '')
+    return (self.info['ids'].get('scholar', None) or '').encode('utf-8')
   def get_doi(self):
-    return str(self.info['ids'].get('doi', None) or '')
+    return (self.info['ids'].get('doi', None) or '').encode('utf-8')
   def get_episte_id(self):
-    return str(self.info['ids'].get('episteId', None) or '')
+    return (self.info['ids'].get('episteId', None) or '').encode('utf-8')
   def get_pubmed_id(self):
-    return str(self.info['ids'].get('pmid', None) or '')
+    return (self.info['ids'].get('pmid', None) or '').encode('utf-8')
   def get_title(self):
-    return str(self.info['title'] or '')
+    return (self.info['title'] or '').encode('utf-8')
   def get_pages(self):
-    return str(self.info['pages'] or '')
+    return (self.info['pages'] or '').encode('utf-8')
   def get_year(self):
-    return str(self.info['year'] or '')
+    return (self.info['year'] or '').encode('utf-8')
   def get_volumen(self):
-    return str(self.info['volume'] or '')
+    return (self.info['volume'] or '').encode('utf-8')
   def get_reference(self):
-    return str(self.info['reference'] or '')
+    return (self.info['reference'] or '').encode('utf-8')
   def get_references(self):
-    return str(self.info['references'] or '')
+    return (self.info['references'] or '').encode('utf-8')
   def get_citation(self):
-    return str(self.get_reference() or '')
+    return (self.get_reference() or '').encode('utf-8')
 
   #sets
   def set_id(self, value):
