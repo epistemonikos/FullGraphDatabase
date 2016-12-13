@@ -24,5 +24,5 @@ def equal_to_log(self, primary_study, returned):
     info = 'EqualsPrimaryStudy'
   else:
     info = 'DistinctsPrimaryStudy'
-  file.write( "{}\t{}\t{}\n".format(info, self.info, primary_study.info) )
+  file.write( "{}\t{}\t{}\n".format(info, self.to_json(), primary_study.to_json()) )
   file.close()
