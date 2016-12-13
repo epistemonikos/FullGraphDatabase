@@ -61,37 +61,29 @@ class Node:
 
   #gets
   def get_id(self):
-    return self.id
+    return str(self.id or '')
   def get_scholar_id(self):
-    return self.info['ids'].get('scholar', None)
+    return str(self.info['ids'].get('scholar', None) or '')
   def get_doi(self):
-    return self.info['ids'].get('doi', None)
+    return str(self.info['ids'].get('doi', None) or '')
   def get_episte_id(self):
-    return self.info['ids'].get('episteId', None)
+    return str(self.info['ids'].get('episteId', None) or '')
   def get_pubmed_id(self):
-    return self.info['ids'].get('pmid', None)
+    return str(self.info['ids'].get('pmid', None) or '')
   def get_title(self):
-    to_return = self.info['title']
-    if to_return:
-      return str(to_return)
-    else:
-      return None
+    return str(self.info['title'] or '')
   def get_pages(self):
-    return self.info['pages']
+    return str(self.info['pages'] or '')
   def get_year(self):
-    return self.info['year']
+    return str(self.info['year'] or '')
   def get_volumen(self):
-    return self.info['volume']
+    return str(self.info['volume'] or '')
   def get_reference(self):
-    to_return = self.info['reference']
-    if to_return:
-      return str(to_return)
-    else:
-      return None
+    return str(self.info['reference'] or '')
   def get_references(self):
-    return self.info['references']
+    return str(self.info['references'] or '')
   def get_citation(self):
-    return self.get_reference()
+    return str(self.get_reference() or '')
 
   #sets
   def set_id(self, value):
