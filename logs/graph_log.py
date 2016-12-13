@@ -1,10 +1,10 @@
 from logs.log import Log
 from model.graph import Graph
 
-LOG_FILE_PATH = "resources/log.log"
+LOG_FILE_PATH = "resources/logs/graph_log.log"
 
 @Log(Graph, Graph.insert)
-def log_insert(self, node, returned):
+def log_insert(self, node, returned, from_systematic_review=None):
     file = open(LOG_FILE_PATH, "a")
     if returned:
       info = "InsertedNode"

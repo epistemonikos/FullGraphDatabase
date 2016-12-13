@@ -1,4 +1,5 @@
 import json
+from model.node_updater import NodeUpdater
 
 class Node:
   
@@ -50,6 +51,12 @@ class Node:
     self_updater = NodeUpdater(self)
     other_updater = NodeUpdater(other_node)
     self_updater.soft_update(graph, other_updater)
+
+  def is_primary_study(self):
+    return False
+
+  def is_systematic_review(self):
+    return False
 
   #gets
   def get_id(self):

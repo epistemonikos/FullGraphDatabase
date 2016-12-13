@@ -1,0 +1,1 @@
+SELECT EXPAND( $c ) LET $a = ( SELECT FROM PS WHERE in().size() > 1), $b = ( SELECT FROM SR ), $c = UNIONALL( $a, $b )

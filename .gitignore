@@ -1,6 +1,10 @@
-*.tsv
-orientdb
-*.txt
 .DS_Store
+**/.DS_Store
+
+*.tsv
+*.txt
 *.pyc
 *.log
+
+!/orientdb-2.2.13/*
+!/orientdb-2.2.13/**/*

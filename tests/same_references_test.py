@@ -11,7 +11,9 @@ references = ['A randomized trial of beta-blockade in heart failure. The Cardiac
 'Packer M, Bristow MR, Cohn JN, Colucci WS, Fowler MB, Gilbert EM, Shusterman NH. The effect of carvedilol on morbidity and mortality in patients with chronic heart failure. U.S. Carvedilol Heart Failure Study Group. N Engl J Med. 1996;334:1349–1355. doi: 10.1056/NEJM199605233342101.',
 'Olsen SL, Gilbert EM, Renlund DG, Taylor DO, Yanowitz FD, Bristow MR. Carvedilol improves left ventricular function and symptoms in chronic heart failure: a double-blind randomized study. J Am Coll Cardiol. 1995;25:1225–1231. doi: 10.1016/0735-1097(95)00012-S.',
 'Metra M, Nardi M, Giubbini R, Dei Cas L. Effects of short- and long-term carvedilol administration on rest and exercise hemodynamic variables, exercise capacity and clinical conditions in patients with idiopathic dilated cardiomyopathy. J Am Coll Cardiol. 1994;24:1678–1687. doi: 10.1016/0735-1097(94)90174-0. ',
-'Effect of metoprolol CR/XL in chronic heart failure: Metoprolol CR/XL Randomised Intervention Trial in Congestive Heart Failure (MERIT-HF) Lancet. 1999;353:2001–2007.']
+'Effect of metoprolol CR/XL in chronic heart failure: Metoprolol CR/XL Randomised Intervention Trial in Congestive Heart Failure (MERIT-HF) Lancet. 1999;353:2001–2007.',
+'Goldstein S. Benefits of β-blocker therapy for heart failure: weighing the evidence. Arch Intern Med 2002 Mar 25; 162: 641–8',
+'Hunt SA, Baker DW, Chin MH, et al. ACC/AHA guidelines for the evaluation and management of chronic heart failure in the adult: executive summary: a report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines (Committee to revise the 1995 Guidelines for the Evaluation and Management of Heart Failure). J Am Coll Cardiol 2001 Dec; 38(7): 2101–13']
 
 NUMERO_MAGICO = 75
 

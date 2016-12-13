@@ -19,43 +19,43 @@ class NodeUpdater:
   def update_title_to(self, graph, other_node):
     self_title = self.node.get_title()
     if self_title:
+      self_title = str(self_title).replace("'",'\'')
       other_node.set_title(self_title)
-      klass = other_node.klass()
       rid = other_node.get_id()
-      graph.execute( "UPDATE %s SET title = '%s' WHERE @rid = '%s'" % (klass, self_title, rid) )
+      graph.execute( "UPDATE PS SET title = '%s' WHERE @rid = '%s'" % (self_title, rid) )
 
 
   def update_episte_id_to(self, graph, other_node):
     self_episte_id = self.node.get_episte_id()
     if self_episte_id:
+      self_episte_id = str(self_episte_id).replace("'",'\'')
       other_node.set_episte_id(self_episte_id)
-      klass = other_node.klass()
       rid = other_node.get_id()
-      graph.execute( "UPDATE %s SET ids.episteId = '%s' WHERE @rid = '%s'" % (klass, self_episte_id, rid) )
+      graph.execute( "UPDATE PS SET ids.episteId = '%s' WHERE @rid = '%s'" % (self_episte_id, rid) )
 
   def update_doi_to(self, graph, other_node):
     self_doi = self.node.get_doi()
     if self_doi:
+      self_doi = str(self_doi).replace("'",'\'')
       other_node.set_doi(self_doi)
-      klass = other_node.klass()
       rid = other_node.get_id()
-      graph.execute( "UPDATE %s SET ids.doi = '%s' WHERE @rid = '%s'" % (klass, self_doi, rid) )
+      graph.execute( "UPDATE PS SET ids.doi = '%s' WHERE @rid = '%s'" % (self_doi, rid) )
 
 
   def update_pubmed_id_to(self, graph, other_node):
     self_pubmed_id = self.node.get_pubmed_id()
     if self_pubmed_id:
+      self_pubmed_id = str(self_pubmed_id).replace("'",'\'')
       other_node.set_pubmed_id(self_pubmed_id)
-      klass = other_node.klass()
       rid = other_node.get_id()
-      graph.execute( "UPDATE %s SET ids.pmid = '%s' WHERE @rid = '%s'" % (klass, self_pubmed_id, rid) )
+      graph.execute( "UPDATE PS SET ids.pmid = '%s' WHERE @rid = '%s'" % (self_pubmed_id, rid) )
 
 
   def update_reference_to(self, graph, other_node):
     self_reference = self.node.get_reference()
     if self_reference:
+      self_reference = str(self_reference).replace("'",'\'')
       other_node.set_reference(self_reference)
-      klass = other_node.klass()
       rid = other_node.get_id()
-      graph.execute( "UPDATE %s SET reference = '%s' WHERE @rid = '%s'" % (klass, self_reference, rid) )
+      graph.execute( "UPDATE PS SET reference = '%s' WHERE @rid = '%s'" % (self_reference, rid) )
 

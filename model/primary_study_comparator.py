@@ -5,7 +5,7 @@ from model.string_helpers import without_stop_words
 class PrimaryStudyComparator:
 
   MAX_TITLE_DISTANCE = 10
-  MIN_RATIO_FOR_CITATIONS = 0.75
+  MIN_RATIO_FOR_CITATIONS = 75
 
   def __init__(self, primary_study):
     self.primary_study = primary_study
@@ -30,7 +30,7 @@ class PrimaryStudyComparator:
 
   def equal_doi(self, other_doi):
     self_doi = self.primary_study.get_doi()
-    if self_title and other_doi:
+    if self_doi and other_doi:
       return self_doi == other_doi
     return False
 
