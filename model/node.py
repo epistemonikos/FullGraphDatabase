@@ -71,7 +71,11 @@ class Node:
   def get_pubmed_id(self):
     return self.info['ids'].get('pmid', None)
   def get_title(self):
-    return self.info['title']
+    to_return = self.info['title']
+    if to_return:
+      return str(to_return)
+    else:
+      return None
   def get_pages(self):
     return self.info['pages']
   def get_year(self):
@@ -79,7 +83,11 @@ class Node:
   def get_volumen(self):
     return self.info['volume']
   def get_reference(self):
-    return self.info['reference']
+    to_return = self.info['reference']
+    if to_return:
+      return str(to_return)
+    else:
+      return None
   def get_references(self):
     return self.info['references']
   def get_citation(self):
