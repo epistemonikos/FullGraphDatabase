@@ -12,6 +12,7 @@ LOG_FILE_PATH = "resources/logs/primary_study_comparator_log.log"
 def equal_title_log(self, title, returned):
   file = open(LOG_FILE_PATH, "a")
   self_title = self.primary_study.get_title() or 'None'
+  title = title or 'None'
   file.write( "{}\t{}\t{}\t{}\n".format('equal_title', self_title.encode('utf-8'), title.encode('utf-8'), returned) )
   file.close()
 
@@ -19,6 +20,7 @@ def equal_title_log(self, title, returned):
 def equal_doi_log(self, doi, returned):
   file = open(LOG_FILE_PATH, "a")
   self_doi = self.primary_study.get_doi() or 'None'
+  doi = doi or 'None'
   file.write( "{}\t{}\t{}\t{}\n".format('equal_doi', self_doi.encode('utf-8'), doi.encode('utf-8'), returned) )
   file.close()
 
@@ -26,11 +28,13 @@ def equal_doi_log(self, doi, returned):
 def equal_pubmed_id_log(self, pubmed_id, returned):
   file = open(LOG_FILE_PATH, "a")
   self_pubmed_id = self.primary_study.get_pubmed_id() or 'None'
+  pubmed_id = pubmed_id or 'None'
   file.write( "{}\t{}\t{}\t{}\n".format('equal_pubmed_id', self_pubmed_id.encode('utf-8'), pubmed_id.encode('utf-8'), returned) )
   file.close()
 
 @Log(PrimaryStudyComparator, PrimaryStudyComparator.equal_citation)
 def equal_citation_log(self, other_citation, returned):
+  other_citation = other_citation or ''
   ratio_1 = 0
   ratio_2 = 0
   ratio = 0
