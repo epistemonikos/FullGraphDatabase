@@ -14,7 +14,7 @@ def exist_in_log(self, graph, returned, from_systematic_review=None):
   else:
     info = "NewPrimaryStudy"
     orient_db_id = '-'
-  file.write( "{}\t{}\t{}\n".format(info, self.info, orient_db_id) )
+  file.write( "{}\t{}\t{}\n".format(info, self.to_json(), orient_db_id) )
   file.close()
 
 @Log(PrimaryStudy, PrimaryStudy.equal_to)
