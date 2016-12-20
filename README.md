@@ -1,9 +1,6 @@
 # FullGraphDatabase
 orientdb database service for full episte's graph
 
-# resources/populate/example.txt:
-Cada linea del archivo es un json estandar que representa una revision sistematica en epistemonikos, incluye sus referencias en la key 'references'.
-
 # CREATE 
 Crea la base de datos si es que no existe y luego crea todas las revisiones sistematicas en 'example.txt'
 ```
@@ -21,3 +18,8 @@ Elimina la base de datos
 ```
 python destroy.py
 ```
+
+# FILE INPUT FOR CREATE AND UPDATE:
+Cada linea del archivo es un json estandar que representa una revision sistematica en epistemonikos, incluye sus referencias en la key 'references'.
+
+Un archivo válido de ejemplo es: 'resources/populate/example.txt'
